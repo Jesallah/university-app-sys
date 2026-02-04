@@ -1,0 +1,50 @@
+[
+    {
+        "id": "S001",
+        "firstname": "John",
+        "surname": "Doe",
+        "other_names": "Kofi",
+        "dob": ["12", "05", "07"],
+        "school": "Presec",
+        "phone_number": "0244123456",
+        "course": "Science",
+        "elective_option": "bio",
+        "results": {"Core Math": "A1", "English": "A1", "Social Studies": "B2", "Integrated Science": "A1", "Physics": "A1", "Chemistry": "B2", "Elective Math": "A1", "Biology": "A1"}
+    },
+    {
+        "id": "S002",
+        "firstname": "Jane",
+        "surname": "Smith",
+        "other_names": "Ama",
+        "dob": ["22", "11", "07"],
+        "school": "Achimota",
+        "phone_number": "0200111222",
+        "course": "Business",
+        "elective_option": "emaths",
+        "results": {"Core Math": "A1", "English": "B3", "Social Studies": "A1", "Integrated Science": "C4", "Economics": "A1", "Business Management": "A1", "Financial Accounting": "A1", "Elective Math": "B2"}
+    },
+    {
+        "id": "S003",
+        "firstname": "Robert",
+        "surname": "Mensah",
+        "other_names": "Kwesi",
+        "dob": ["05", "01", "08"],
+        "school": "Mfantsipim",
+        "phone_number": "0555999888",
+        "course": "General Art",
+        "elective_option": "op3",
+        "results": {"Core Math": "A1", "English": "B3", "Social Studies": "A1", "Integrated Science": "C4", "Economics": "A1", "Government": "A1", "Literature": "B2", "CRS": "B2"}
+    },
+    {
+        "id": "S004",
+        "firstname": "Judah",
+        "surname": "Sallah",
+        "other_names": "Edudzi",
+        "dob": ["27", "03", "09"],
+        "school": "Presec",
+        "phone_number": "0201107878",
+        "course": "Science",
+        "elective_option": "eict",
+        "results": {"Core Math": "A1", "English": "B2", "Social Studies": "B2", "Integrated Science": "B2", "Physics": "B3", "Chemistry": "C5", "Elective Math": "B3", "Elective ICT": "B3"}
+    }
+]
