@@ -39,9 +39,9 @@ def admin():
           "4. Get a student's age\n" \
           "5. Get a student's date of birth in a different format\n" \
           "0. Exit")
-    
+
     num = int(input("option: "))
-    
+
     # Add a new student
     if num == 1:
         stud_id = input("Student ID: ")
