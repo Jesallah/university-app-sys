@@ -1,5 +1,5 @@
-from student_edited import Student
 import json
+from student_edited import Student
 
 # A list to hold all student objects
 all_students = []
@@ -32,82 +32,99 @@ with open('students.json', 'r', encoding='utf-8') as f:
 def admin():
     """Displays the main administrative menu for managing student data.
     This function acts as the main loop of the application."""
-    print("ADMIN\nWhat do you want to do:")
-    print("1. Add a new student\n" \
-          "2. Print a student's details\n" \
-          "3. Print a student's results\n" \
-          "4. Get a student's age\n" \
-          "5. Get a student's date of birth in a different format\n" \
-          "0. Exit")
+    while True:
+        print("ADMIN\nWhat do you want to do:")
+        print("1. Add a new student\n" \
+              "2. Print a student's details\n" \
+              "3. Print a student's results\n" \
+              "4. Get a student's age\n" \
+              "5. Get a student's date of birth in a different format\n" \
+              "0. Exit")
 
-    num = int(input("option: "))
+        num = int(input("option: "))
 
-    # Add a new student
-    if num == 1:
-        stud_id = input("Student ID: ")
-        add_student(stud_id)
-        admin()
-    # Print a student's details
-    elif num == 2:
-        stud_id = input("Student ID: ")
-        for st in all_students:
-            if st.id == stud_id:
-                st.print_student_details()
-        print("no such student")
-        admin()
-    # Print a student's results
-    elif num == 3:
-        stud_id = input("Student ID: ")
-        for st in all_students:
-            if st.id == stud_id:
-                st.get_user_results()
-        print("no such student")
-        admin()
-    # Get a student's age
-    elif num == 4:
-        stud_id = input("Student ID: ")
-        for st in all_students:
-            if st.id == stud_id:
-                print(f"{st.get_fullname()}\nAge: {st.get_age()}")
-        admin()
-    # Get a student's date of birth in a different format
-    elif num == 5:
-        stud_id = input("Student ID: ")
-        for st in all_students:
-            if st.id == stud_id:
-                print(st.fix_dob())
-        admin() # Go back to admin menu
-    elif num == 6:
-        stud_id = input("Student ID: ")
-        for st in all_students:
-            if st.id == stud_id:
-                print(f"Aggregate: {st.calc_student_aggr()}")
-        admin() # Go back to admin menu
-    # Exit the application
-    elif num == 0:
-        print("Exiting...")
-        # # Save all student data to the JSON file before exiting
-        # student_data = []
-        # for st in all_students:
-        #     student_data.append({
-        #         "id": st.id,
-        #         "firstname": st.firstname,
-        #         "surname": st.surname,
-        #         "other_names": st.other_names,
-        #         "dob": st.dob,
-        #         "school": st.school,
-        #         "phone_number": st.phone_number,
-        #         "course": st.course,
-        #         "elective_option": st.elective_option,
-        #         "results": st.results
-        #     })
-        # with open('students.json', 'w', encoding='utf-8') as f:
-        #     json.dump(student_data, f, indent=4)
-        # return  # Exit the admin function and end the application
-    # Handle invalid input
-    else:
-        print("invalid")
-        admin()
+        # Add a new student
+        if num == 1:
+            stud_id = input("Student ID: ")
+            add_student(stud_id)
+        # Print a student's details
+        elif num == 2:
+            stud_id = input("Student ID: ")
+            found = False
+            for st in all_students:
+                if st.id == stud_id:
+                    st.print_student_details()
+                    found = True
+                    break
+            if not found:
+                print("no such student")
+        # Print a student's results
+        elif num == 3:
+            stud_id = input("Student ID: ")
+            found = False
+            for st in all_students:
+                if st.id == stud_id:
+                    st.get_user_results()
+                    found = True
+                    break
+            if not found:
+                print("no such student")
+        # Get a student's age
+        elif num == 4:
+            stud_id = input("Student ID: ")
+            found = False
+            for st in all_students:
+                if st.id == stud_id:
+                    print(f"{st.get_fullname()}\nAge: {st.get_age()}")
+                    found = True
+                    break
+            if not found:
+                print("no such student")
+        # Get a student's date of birth in a different format
+        elif num == 5:
+            stud_id = input("Student ID: ")
+            found = False
+            for st in all_students:
+                if st.id == stud_id:
+                    print(st.fix_dob())
+                    found = True
+                    break
+            if not found:
+                print("no such student")
+        elif num == 6:
+            stud_id = input("Student ID: ")
+            found = False
+            for st in all_students:
+                if st.id == stud_id:
+                    print(f"Aggregate: {st.calc_student_aggr()}")
+                    found = True
+                    break
+            if not found:
+                print("no such student")
+        # Exit the application
+        elif num == 0:
+            print("Exiting...")
+            # # Save all student data to the JSON file before exiting
+            # student_data = []
+            # for st in all_students:
+            #     student_data.append({
+            #         "id": st.id,
+            #         "firstname": st.firstname,
+            #         "surname": st.surname,
+            #         "other_names": st.other_names,
+            #         "dob": st.dob,
+            #         "school": st.school,
+            #         "phone_number": st.phone_number,
+            #         "course": st.course,
+            #         "elective_option": st.elective_option,
+            #         "results": st.results
+            #     })
+            # with open('students.json', 'w', encoding='utf-8') as f:
+            #     json.dump(student_data, f, indent=4)
+            break  # Exit the while loop and end the application
+        # Handle invalid input
+        else:
+            print("invalid")
 
 # Start the administrative interface
 admin()
