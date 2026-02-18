@@ -1,5 +1,5 @@
 from datetime import date, datetime
-from pprint import pprint
+
 
 class Student:
     """Represents a student in the university application system."""
@@ -20,6 +20,7 @@ class Student:
         self.course = ""
         self.elective_option = ""
         self.results = {}
+        self.selected_programmes = []
 
     def record_student_details(self):
         """Prompts the user to enter their personal and school details."""
@@ -68,16 +69,36 @@ class Student:
 
     def print_student_details(self):
         """Prints all the details of the student in a formatted way."""
-        print(f"""\nStudent Details:
-Student ID: {self.id}
-Full name: {self.get_fullname()}
+        core_subjects = ["Core Math", "English", "Social Studies", "Integrated Science"]
+        core_results = {k: v for k, v in self.results.items() if k in core_subjects}
+        elective_results = {k: v for k, v in self.results.items() if k not in core_subjects}
+
+        print(f"""
+{'=' * 50}
+STUDENT DETAILS
+{'=' * 50}
+Student ID:    {self.id}
+Full Name:     {self.get_fullname()}
 Date of Birth: {self.fix_dob()}
-Age: {self.get_age()}
-Phone number: {self.phone_number}
-School: {self.school}
-Course: {self.course}
-Results:""")
-        pprint(self.results, width=1, sort_dicts=False)
+Age:           {self.get_age()}
+Phone Number:  {self.phone_number}
+School:        {self.school}
+Course:        {self.course}
+{'-' * 50}
+Results:
+  Core Subjects:
+""")
+        for subject, grade in core_results.items():
+            print(f"    {subject:<25} {grade}")
+        print("  Elective Subjects:")
+        for subject, grade in elective_results.items():
+            print(f"    {subject:<25} {grade}")
+        if self.selected_programmes:
+            print("\nSelected Programmes:")
+            for i, prog_name in enumerate(self.selected_programmes, 1):
+                print(f"  {i}. {prog_name}")
+        else:
+            print("\nSelected Programmes: None")
 
     def record_user_course(self):
         """Guides the user to select their course and elective options."""
@@ -254,9 +275,24 @@ Results:""")
 
     def get_user_results(self):
         """Prints the student's ID, name, and their results."""
-        print(f"\nStudent ID: {self.id}\nStudent name: {self.get_fullname()}")
-        for key, value in self.results.items():
-            print(f"{key}: {value}")
+        core_subjects = ["Core Math", "English", "Social Studies", "Integrated Science"]
+        core_results = {k: v for k, v in self.results.items() if k in core_subjects}
+        elective_results = {k: v for k, v in self.results.items() if k not in core_subjects}
+        
+        print("\n" + "=" * 50)
+        print("STUDENT RESULTS")
+        print("=" * 50)
+        print(f"Student ID:   {self.id}")
+        print(f"Student Name: {self.get_fullname()}")
+        print("-" * 50)
+        print("Core Subjects:")
+        for subject, grade in core_results.items():
+            print(f"  {subject:<25} {grade}")
+        print("-" * 50)
+        print("Elective Subjects:")
+        for subject, grade in elective_results.items():
+            print(f"  {subject:<25} {grade}")
+        print("=" * 50 + "\n")
     
     def calc_student_aggr(self):
         """Calculates the student's aggregate score based on their results."""
@@ -278,3 +314,55 @@ Results:""")
 
         total_aggregate = sum(best_core_points) + sum(best_elective_points)
         return total_aggregate
+
+    def select_programmes(self, available_programmes):
+        """Allows the student to select 4 programmes from the available list.
+        
+        Args:
+            available_programmes (list): A list of Programme objects to choose from.
+        """
+        if not available_programmes:
+            print("No programmes available for selection.")
+            return
+        
+        print("\n" + "="*50)
+        print("SELECT 4 PROGRAMMES")
+        print("="*50)
+        print("Available programmes:")
+        for i, prog in enumerate(available_programmes, 1):
+            print(f"{i}. {prog.name} (Cut-off: {prog.cutoff_point})")
+        print("="*50)
+        
+        selected_indices = []
+        selected_names = []
+        
+        while len(selected_indices) < 4:
+            try:
+                choice = input(f"\nSelect programme {len(selected_indices) + 1} (enter number 1-{len(available_programmes)}): ")
+                choice_num = int(choice)
+                
+                if choice_num < 1 or choice_num > len(available_programmes):
+                    print(f"Invalid choice. Please enter a number between 1 and {len(available_programmes)}.")
+                    continue
+                
+                if choice_num in selected_indices:
+                    print("You have already selected this programme. Please choose a different one.")
+                    continue
+                
+                selected_indices.append(choice_num)
+                selected_names.append(available_programmes[choice_num - 1].name)
+                print(f"Selected: {available_programmes[choice_num - 1].name}")
+                
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+            except KeyboardInterrupt:
+                print("\nSelection cancelled.")
+                return
+        
+        self.selected_programmes = selected_names
+        print("\n" + "="*50)
+        print("SELECTED PROGRAMMES:")
+        for i, prog_name in enumerate(self.selected_programmes, 1):
+            print(f"{i}. {prog_name}")
+        print("="*50 + "\n")
+    
