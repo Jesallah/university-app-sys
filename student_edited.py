@@ -20,7 +20,6 @@ class Student:
         self.course = ""
         self.elective_option = ""
         self.results = {}
-        self.fixed_dob = None
 
     def record_student_details(self):
         """Prompts the user to enter their personal and school details."""
@@ -56,8 +55,8 @@ class Student:
         birth_year = int(self.dob[-1])
         # Convert 2-digit year to 4-digit year
         full_birth_year = 2000 + birth_year if birth_year <= (today.year % 100) else 1900 + birth_year
-        self.fixed_dob = datetime(int(full_birth_year), int(self.dob[1]), int(self.dob[0]))
-        return self.fixed_dob.strftime("%d-%m-%Y")
+        fixed_dob = datetime(int(full_birth_year), int(self.dob[1]), int(self.dob[0]))
+        return fixed_dob.strftime("%d-%m-%Y")
 
     def get_fullname(self):
         """Constructs the student's full name.
@@ -258,3 +257,24 @@ Results:""")
         print(f"\nStudent ID: {self.id}\nStudent name: {self.get_fullname()}")
         for key, value in self.results.items():
             print(f"{key}: {value}")
+    
+    def calc_student_aggr(self):
+        """Calculates the student's aggregate score based on their results."""
+        grade_points = {
+            "A1": 1, "B2": 2, "B3": 3,
+            "C4": 4, "C5": 5, "C6": 6,
+            "D7": 7, "E8": 8, "F9": 9
+        }
+
+        core_results = [self.results.get("Core Math"), self.results.get("English"), self.results.get("Social Studies"), self.results.get("Integrated Science")]
+        elective_results = [value for key, value in self.results.items() if key not in ["Core Math", "English", "Social Studies", "Integrated Science"]]
+        core_points = [grade_points.get(grade.upper(), 0) for grade in core_results if grade and grade.upper() in grade_points]
+        elective_points = [grade_points.get(grade.upper(), 0) for grade in elective_results if grade and grade.upper() in grade_points]
+
+        if len(core_points) < 3 or len(elective_points) < 3:
+            return "Error: Not enough valid core or elective results to calculate aggregate."
+        best_core_points = sorted(core_points)[:3]
+        best_elective_points = sorted(elective_points)[:3]
+
+        total_aggregate = sum(best_core_points) + sum(best_elective_points)
+        return total_aggregate

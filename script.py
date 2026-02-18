@@ -77,9 +77,33 @@ def admin():
             if st.id == stud_id:
                 print(st.fix_dob())
         admin() # Go back to admin menu
+    elif num == 6:
+        stud_id = input("Student ID: ")
+        for st in all_students:
+            if st.id == stud_id:
+                print(f"Aggregate: {st.calc_student_aggr()}")
+        admin() # Go back to admin menu
     # Exit the application
     elif num == 0:
-        pass
+        print("Exiting...")
+        # # Save all student data to the JSON file before exiting
+        # student_data = []
+        # for st in all_students:
+        #     student_data.append({
+        #         "id": st.id,
+        #         "firstname": st.firstname,
+        #         "surname": st.surname,
+        #         "other_names": st.other_names,
+        #         "dob": st.dob,
+        #         "school": st.school,
+        #         "phone_number": st.phone_number,
+        #         "course": st.course,
+        #         "elective_option": st.elective_option,
+        #         "results": st.results
+        #     })
+        # with open('students.json', 'w', encoding='utf-8') as f:
+        #     json.dump(student_data, f, indent=4)
+        # return  # Exit the admin function and end the application
     # Handle invalid input
     else:
         print("invalid")

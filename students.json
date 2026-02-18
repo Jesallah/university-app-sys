@@ -45,6 +45,6 @@
         "phone_number": "0201107878",
         "course": "Science",
         "elective_option": "eict",
-        "results": {"Core Math": "A1", "English": "B2", "Social Studies": "B2", "Integrated Science": "B2", "Physics": "B3", "Chemistry": "C5", "Elective Math": "B3", "Elective ICT": "B3"}
+        "results": {"Core Math": "A1", "English": "B2", "Social Studies": "B3", "Integrated Science": "B3", "Physics": "B3", "Chemistry": "C5", "Elective Math": "B3", "Elective ICT": "B3"}
     }
 ]
